@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Linked OntoGazetteer</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel>
+			<h1>Linked OntoGazetteer</h1>
+			<table>
+				<tr>
+					<td><h:inputText size="90" value="#{searchBean.queryText}">
+							<!-- 							<p:ajax update="result" listener="#{searchBean.doQuery}" /> -->
+						</h:inputText></td>
+					<td><p:commandButton value="Buscar" update="@form"
+							actionListener="#{searchBean.doQuery}" /></td>
+				</tr>
+			</table>
+		</p:panel>
+		<p:separator />
+		<p:panel id="result">
+			<p:outputLabel value="" />
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<h:outputText value="Searching for ambiguous place..." />
+				</f:facet>
+				<f:facet name="complete">
+					<h:outputText value="Query time: #{searchBean.queryTime} ms" />
+				</f:facet>
+			</p:ajaxStatus>
+			<p:dataGrid var="record" value="#{searchBean.results}" columns="4"
+				paginator="true" paginatorPosition="bottom"
+				paginatorAlwaysVisible="false">
+				<p:column>
+					<p:panel header="Record id: #{record.id}">
+						<h:panelGrid columns="1">
+							<p:link outcome="#{record.uri}" value="More Info" />
+
+							<p:button rendered="#{not empty record.geonamesURL}"
+								target="_blank" href="#{record.geonamesURL}"
+								value="Go to Geonames" />
+
+							<p:button rendered="#{not empty record.wikipediaURL}"
+								target="_blank" href="#{record.wikipediaURL}"
+								value="Go to DBPedia" />
+						</h:panelGrid>
+					</p:panel>
+				</p:column>
+			</p:dataGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

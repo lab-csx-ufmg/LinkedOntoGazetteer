@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Linked OntoGazetteer</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:layout fullPage="true">
+			<p:layoutUnit position="center">
+				<p:panel header="More Info Record #{param.id}">
+					<p:tabView dynamic="true">
+						<p:tab title="Names">
+							<p:dataGrid var="name" value="#{vertexDetailBean.names}"
+								columns="4">
+								<p:outputLabel value="#{name}" />
+							</p:dataGrid>
+						</p:tab>
+						<p:tab title="Geonames">
+							<iframe frameborder="0" width="100%" style="height: 600px"
+								scrolling="no" src="http://www.geonames.org/2243643" />
+						</p:tab>
+						<p:tab title="DBPedia">
+							<iframe frameborder="0" width="100%" style="height: 600px"
+								src="http://www.en.wikipedia.org/wiki/Paris,_Ontario" />
+						</p:tab>
+					</p:tabView>
+				</p:panel>
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
+</h:body>
+</html>
