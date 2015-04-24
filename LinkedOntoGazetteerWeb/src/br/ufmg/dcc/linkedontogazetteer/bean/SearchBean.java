@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 
-import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremilinRESTClient;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremlinRESTClient;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.ResultObject;
 import br.ufmg.dcc.linkedontogazetteer.view.VertexWrapper;
@@ -14,12 +14,12 @@ public class SearchBean {
 	private String queryText;
 	private Double queryTime;
 	
-	private final GremilinRESTClient client;
+	private final GremlinRESTClient client;
 	private ArrayList<VertexWrapper> results = new ArrayList<VertexWrapper>();
 	
 	
 	public SearchBean() {
-		this.client = new GremilinRESTClient("rexster", "MicroGEO@00");
+		this.client = new GremlinRESTClient("rexster", "MicroGEO@00");
 	}
 	
 	public void doQuery() {

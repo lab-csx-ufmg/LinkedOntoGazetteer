@@ -15,7 +15,16 @@
 		<p:layout fullPage="true">
 			<p:layoutUnit position="center">
 				<p:panel header="More Info Record #{param.id}">
-					<p:tabView dynamic="true">
+					<p:outputLabel value="" />
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<h:outputText value="Searching for ambiguous place..." />
+						</f:facet>
+						<f:facet name="complete">
+							<h:outputText value="Query time: ms" />
+						</f:facet>
+					</p:ajaxStatus>
+					<p:tabView dynamic="false">
 						<p:tab title="Names">
 							<p:dataGrid var="name" value="#{vertexDetailBean.names}"
 								columns="4">
@@ -23,12 +32,16 @@
 							</p:dataGrid>
 						</p:tab>
 						<p:tab title="Geonames">
-							<iframe frameborder="0" width="100%" style="height: 600px"
-								scrolling="no" src="http://www.geonames.org/2243643" />
+							<iframe frameborder="0" width="100%" style="height: 600px;align: center"
+								scrolling="no" src="#{vertexDetailBean.vertex.geonamesURL}" />
 						</p:tab>
 						<p:tab title="DBPedia">
 							<iframe frameborder="0" width="100%" style="height: 600px"
-								src="http://www.en.wikipedia.org/wiki/Paris,_Ontario" />
+								src="#{vertexDetailBean.vertex.wikipediaURL}" />
+						</p:tab>
+						<p:tab title="Freebase">
+							<iframe frameborder="0" width="100%" style="height: 600px"
+								src="#{vertexDetailBean.vertex.freebaseURL}" />
 						</p:tab>
 					</p:tabView>
 				</p:panel>

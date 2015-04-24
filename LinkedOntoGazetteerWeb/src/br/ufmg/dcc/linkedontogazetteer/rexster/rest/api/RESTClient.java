@@ -9,8 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
-
 public abstract class RESTClient {
 
 	protected static final String BASE_URI = "http://mgeo00.cloudapp.net:8182/graphs/LinkedOntoGazetteer/"; 
@@ -50,8 +48,8 @@ public abstract class RESTClient {
 		};
 	}
 
-	protected Response exchange(String url, HttpMethod method, Object... uriArgs) {
-		ResponseEntity<Response> exchange = this.restTemplate.exchange(url, method, new HttpEntity<Response>(this.header), Response.class, uriArgs);
+	protected <T> T exchange(String url, HttpMethod method, Class<T> responseClass, Object... uriArgs) {
+		ResponseEntity<T> exchange = this.restTemplate.exchange(url, method, new HttpEntity<T>(this.header), responseClass, uriArgs);
 		return exchange.getBody();
 	}
 }

@@ -10,6 +10,7 @@ public class ResultObject {
 	private String _type;
 	private String dbpediaId;
 	private String geonamesId;
+	private String freebaseId;
 
 	public Long get_id() {
 		return this._id;
@@ -27,6 +28,14 @@ public class ResultObject {
 		return this.geonamesId;
 	}
 
+	public String getFreebaseId() {
+		return this.freebaseId;
+	}
+
+	public void setFreebaseId(String freebaseId) {
+		this.freebaseId = freebaseId;
+	}
+	
 	public String getName() {
 		return this.name;
 	}

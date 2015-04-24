@@ -41,15 +41,25 @@
 				<p:column>
 					<p:panel header="Record id: #{record.id}">
 						<h:panelGrid columns="1">
-							<p:link outcome="#{record.uri}" value="More Info" />
-
-							<p:button rendered="#{not empty record.geonamesURL}"
-								target="_blank" href="#{record.geonamesURL}"
-								value="Go to Geonames" />
-
-							<p:button rendered="#{not empty record.wikipediaURL}"
-								target="_blank" href="#{record.wikipediaURL}"
-								value="Go to DBPedia" />
+							<p:link outcome="#{record.uri}" value="See all details" />
+							<p:lightBox iframe="true"
+								rendered="#{not empty record.geonamesURL}">
+								<h:outputLink value="#{record.geonamesURL}" title="GeoNames">
+									<h:outputText value="GeoNames" />
+								</h:outputLink>
+							</p:lightBox>
+							<p:lightBox iframe="true"
+								rendered="#{not empty record.wikipediaURL}">
+								<h:outputLink value="#{record.wikipediaURL}" title="DBPedia">
+									<h:outputText value="DBPedia" />
+								</h:outputLink>
+							</p:lightBox>
+							<p:lightBox iframe="true"
+								rendered="#{not empty record.freebaseURL}">
+								<h:outputLink value="#{record.freebaseURL}" title="Freebase">
+									<h:outputText value="Freebase" />
+								</h:outputLink>
+							</p:lightBox>
 						</h:panelGrid>
 					</p:panel>
 				</p:column>

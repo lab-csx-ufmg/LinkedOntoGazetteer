@@ -9,18 +9,25 @@ import javax.faces.bean.ManagedProperty;
 
 import org.springframework.util.StringUtils;
 
-import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremilinRESTClient;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremlinRESTClient;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.VertexClient;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.ResultObject;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.SingleResultObjectResponse;
+import br.ufmg.dcc.linkedontogazetteer.view.VertexWrapper;
 
 @ManagedBean(name = "vertexDetailBean")
 public class VertexDetailBean {
 
 	@ManagedProperty(value = "#{param.id}")
 	private Long id;
-	private GremilinRESTClient client;
+	
+	private GremlinRESTClient gremlinClient;
 	private final SortedSet<String> names = new TreeSet<String>();
+	private VertexClient vertexClient;
 
+	private VertexWrapper vertex;
+	
 	public Long getId() {
 		return this.id;
 	}
@@ -31,14 +38,21 @@ public class VertexDetailBean {
 
 	@PostConstruct
 	public void init() {
-		this.client = new GremilinRESTClient("rexster", "MicroGEO@00");
-
-		Response allNames = this.client.getAllNames(this.id);
+		this.gremlinClient = new GremlinRESTClient("rexster", "MicroGEO@00");
+		this.vertexClient = new VertexClient("rexster", "MicroGEO@00");
+		
+		Response allNames = this.gremlinClient.getAllNames(this.id);
 
 		for (ResultObject resultObject : allNames.getResults()) {
 			if (!StringUtils.isEmpty(resultObject.getName())) {
 				this.names.add(resultObject.getName());
 			}
+		}
+		
+		SingleResultObjectResponse retrieveById = this.vertexClient.retrieveById(this.id);
+		
+		if(retrieveById.getResults() != null) {
+			this.vertex = new VertexWrapper(retrieveById.getResults());
 		}
 	}
 
@@ -46,4 +60,11 @@ public class VertexDetailBean {
 		this.id = id;
 	}
 
+	public VertexWrapper getVertex() {
+		return this.vertex;
+	}
+
+	public void setVertex(VertexWrapper vertex) {
+		this.vertex = vertex;
+	}
 }
