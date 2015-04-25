@@ -8,55 +8,111 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<style>
+.ui-widget-header {
+	background-color: transparent;
+	border: 0;
+}
+
+hr.ui-separator {
+	border: 0;
+}
+
+tbody {
+	vertical-align: top;
+}
+
+.ui-datagrid-content-empty {
+	border: 0;
+}
+
+.ui-datagrid-content {
+	border: 0;
+}
+</style>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['images/favicon.ico']}" />
 	<title>Linked OntoGazetteer</title>
 </h:head>
 <h:body>
 	<h:form>
-		<p:panel>
-			<h1>Linked OntoGazetteer</h1>
-			<table>
+		<p:growl id="growl" life="2000" />
+		<p:panel style="border: 0">
+			<table style="margin-left: auto; margin-right: auto;">
+				<tr>
+					<td><h:graphicImage name="images/logoplain.png" /></td>
+					<td style="vertical-align: middle;">
+						<h1 style="font-size: 50pt; margin: 0">Linked OntoGazetteer</h1>
+					</td>
+				</tr>
+			</table>
+			<table style="margin-left: auto; margin-right: auto;">
 				<tr>
 					<td><h:inputText size="90" value="#{searchBean.queryText}">
 							<!-- 							<p:ajax update="result" listener="#{searchBean.doQuery}" /> -->
 						</h:inputText></td>
-					<td><p:commandButton value="Buscar" update="@form"
-							actionListener="#{searchBean.doQuery}" /></td>
+					<td><p:commandButton value="Search" update="@form growl"
+							actionListener="#{searchBean.doQuery}" icon="ui-icon-search"
+							style="font-size: 10pt" /></td>
 				</tr>
 			</table>
 		</p:panel>
 		<p:separator />
-		<p:panel id="result">
+		<p:panel id="result" style="border: 0">
 			<p:outputLabel value="" />
 			<p:ajaxStatus>
 				<f:facet name="start">
 					<h:outputText value="Searching for ambiguous place..." />
 				</f:facet>
 				<f:facet name="complete">
-					<h:outputText value="Query time: #{searchBean.queryTime} ms" />
+					<h:outputText rendered="#{searchBean.queryTime gt 0}" value="Query time: #{searchBean.queryTime} ms" />
 				</f:facet>
 			</p:ajaxStatus>
 			<p:dataGrid var="record" value="#{searchBean.results}" columns="4"
-				paginator="true" paginatorPosition="bottom"
-				paginatorAlwaysVisible="false">
+				paginator="true" paginatorPosition="bottom" emptyMessage=""
+				paginatorAlwaysVisible="false" style="border: 0">
 				<p:column>
-					<p:panel header="Record id: #{record.id}">
+					<p:panel>
+						<f:facet name="header">
+							<table>
+								<tr>
+									<td><h:graphicImage name="images/favicon.ico" /></td>
+									<td style="padding-top: 7px;"><h:outputText
+											value="Place ID: #{record.id}" /></td>
+								</tr>
+							</table>
+						</f:facet>
 						<h:panelGrid columns="1">
 							<p:link outcome="#{record.uri}" value="See all details" />
 							<p:lightBox iframe="true"
 								rendered="#{not empty record.geonamesURL}">
 								<h:outputLink value="#{record.geonamesURL}" title="GeoNames">
+									<h:graphicImage name="images/globe.png"
+										style="width: 15%;margin-right: 10px;" />
 									<h:outputText value="GeoNames" />
 								</h:outputLink>
 							</p:lightBox>
 							<p:lightBox iframe="true"
-								rendered="#{not empty record.wikipediaURL}">
-								<h:outputLink value="#{record.wikipediaURL}" title="DBPedia">
+								rendered="#{not empty record.dbpediaURL}">
+								<h:outputLink value="#{record.dbpediaURL}" title="DBPedia">
+									<h:graphicImage name="images/dbpedia.png"
+										style="margin-right: 10px;" />
 									<h:outputText value="DBPedia" />
+								</h:outputLink>
+							</p:lightBox>
+							<p:lightBox iframe="true"
+								rendered="#{not empty record.wikipediaURL}">
+								<h:outputLink value="#{record.wikipediaURL}" title="Wikipedia">
+									<h:graphicImage name="images/wikipedialogo.png"
+										style="width: 15%;margin-right: 10px;" />
+									<h:outputText value="Wikipedia" />
 								</h:outputLink>
 							</p:lightBox>
 							<p:lightBox iframe="true"
 								rendered="#{not empty record.freebaseURL}">
 								<h:outputLink value="#{record.freebaseURL}" title="Freebase">
+									<h:graphicImage name="images/freebase.png"
+										style="width: 15%;margin-right: 10px;" />
 									<h:outputText value="Freebase" />
 								</h:outputLink>
 							</p:lightBox>

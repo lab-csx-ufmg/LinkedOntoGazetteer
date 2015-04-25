@@ -8,22 +8,61 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Linked OntoGazetteer</title>
+	<style>
+		.ui-panel {
+			border:0;
+		}
+		.ui-widget-header {
+			background-color: transparent;
+			border: 0;
+		}
+		
+		hr.ui-separator {
+			border: 0;
+		}
+		
+		tbody {
+			vertical-align: top;
+		}
+		
+		.ui-datagrid-content-empty {
+			border: 0;
+		}
+		
+		.ui-datagrid-content {
+			border: 0;
+		}
+	</style>
+
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['images/favicon.ico']}" />
+	<title>Linked OntoGazetteer - More Info Place ID: #{param.id}</title>
 </h:head>
 <h:body>
 	<h:form>
 		<p:layout fullPage="true">
-			<p:layoutUnit position="center">
-				<p:panel header="More Info Record #{param.id}">
-					<p:outputLabel value="" />
-					<p:ajaxStatus>
-						<f:facet name="start">
-							<h:outputText value="Searching for ambiguous place..." />
-						</f:facet>
-						<f:facet name="complete">
-							<h:outputText value="Query time: ms" />
-						</f:facet>
-					</p:ajaxStatus>
+			<p:layoutUnit position="north" size="90" style="border:0;">
+				<table style="margin-right: auto;">
+					<tr>
+						<td><h:graphicImage name="images/logoplainsmall.png" /></td>
+						<td style="vertical-align: middle;">
+							<h1 style="margin: 0">Linked OntoGazetteer</h1>
+						</td>
+					</tr>
+				</table>
+			</p:layoutUnit>
+			<p:layoutUnit position="center" style="border:0;">
+				<p:panel>
+					<f:facet name="header">
+						<table>
+							<tr>
+								<td><h:graphicImage name="images/favicon.ico" /></td>
+								<td style="padding-top: 7px;">
+								<h:outputText value="More Info Place ID: #{param.id}" />
+								</td>
+							</tr>
+						</table>
+					</f:facet>
 					<p:tabView dynamic="false">
 						<p:tab title="Names">
 							<p:dataGrid var="name" value="#{vertexDetailBean.names}"
@@ -31,15 +70,24 @@
 								<p:outputLabel value="#{name}" />
 							</p:dataGrid>
 						</p:tab>
-						<p:tab title="Geonames">
-							<iframe frameborder="0" width="100%" style="height: 600px;align: center"
-								scrolling="no" src="#{vertexDetailBean.vertex.geonamesURL}" />
+						<p:tab title="Geonames"
+							rendered="#{not empty vertexDetailBean.vertex.geonamesURL}">
+							<iframe frameborder="0" width="100%"
+								style="height: 600px; align: center" scrolling="no"
+								src="#{vertexDetailBean.vertex.geonamesURL}" />
 						</p:tab>
-						<p:tab title="DBPedia">
+						<p:tab title="DBPedia"
+							rendered="#{not empty vertexDetailBean.vertex.dbpediaURL}">
+							<iframe frameborder="0" width="100%" style="height: 600px"
+								src="#{vertexDetailBean.vertex.dbpediaURL}" />
+						</p:tab>
+						<p:tab title="Wikipedia"
+							rendered="#{not empty vertexDetailBean.vertex.wikipediaURL}">
 							<iframe frameborder="0" width="100%" style="height: 600px"
 								src="#{vertexDetailBean.vertex.wikipediaURL}" />
 						</p:tab>
-						<p:tab title="Freebase">
+						<p:tab title="Freebase"
+							rendered="#{not empty vertexDetailBean.vertex.freebaseURL}">
 							<iframe frameborder="0" width="100%" style="height: 600px"
 								src="#{vertexDetailBean.vertex.freebaseURL}" />
 						</p:tab>

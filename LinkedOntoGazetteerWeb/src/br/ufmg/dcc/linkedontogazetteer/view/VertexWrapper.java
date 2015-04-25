@@ -11,6 +11,7 @@ public class VertexWrapper {
 	private String wikipediaURL;
 	private String geonamesURL;
 	private String freebaseURL;
+	private String dbpediaURL;
 
 	public VertexWrapper(ResultObject resultObject) {
 		this.id = resultObject.get_id();
@@ -18,6 +19,7 @@ public class VertexWrapper {
 
 		if (resultObject.getDbpediaId() != null) {
 			this.wikipediaURL = "http://en.wikipedia.org/wiki/" + resultObject.getDbpediaId();
+			this.dbpediaURL = "http://dbpedia.org/page/" + resultObject.getDbpediaId();
 		}
 
 		if (resultObject.getGeonamesId() != null) {
@@ -59,5 +61,13 @@ public class VertexWrapper {
 
 	public void setFreebaseURL(String freebaseURL) {
 		this.freebaseURL = freebaseURL;
+	}
+
+	public String getDbpediaURL() {
+		return this.dbpediaURL;
+	}
+
+	public void setDbpediaURL(String dbpediaURL) {
+		this.dbpediaURL = dbpediaURL;
 	}
 }

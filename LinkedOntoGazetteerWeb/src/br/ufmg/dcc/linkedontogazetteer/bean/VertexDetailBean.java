@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 
 import org.springframework.util.StringUtils;
 
+import br.ufmg.dcc.linkedontogazetteer.AppConfiguration;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremlinRESTClient;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.VertexClient;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
@@ -18,7 +19,8 @@ import br.ufmg.dcc.linkedontogazetteer.view.VertexWrapper;
 
 @ManagedBean(name = "vertexDetailBean")
 public class VertexDetailBean {
-
+	private static final AppConfiguration config = AppConfiguration.getConfiguration();
+	
 	@ManagedProperty(value = "#{param.id}")
 	private Long id;
 	
@@ -38,8 +40,8 @@ public class VertexDetailBean {
 
 	@PostConstruct
 	public void init() {
-		this.gremlinClient = new GremlinRESTClient("rexster", "MicroGEO@00");
-		this.vertexClient = new VertexClient("rexster", "MicroGEO@00");
+		this.gremlinClient = new GremlinRESTClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword());
+		this.vertexClient = new VertexClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword());
 		
 		Response allNames = this.gremlinClient.getAllNames(this.id);
 
