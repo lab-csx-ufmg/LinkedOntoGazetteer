@@ -127,4 +127,14 @@ public class PlaceBO extends BusinessObject {
 		
 		return place;
 	}
+
+	public Place retrievePlaceByLinkedGeoDataId(String lgdId) {
+		Place place = this.getFramedVertex("lgdId", lgdId, Place.class);
+		
+//		if(place != null && (place.getType() != null  && !place.getType().getType().equals(Type.PLACE))) {
+//			place = null;
+//		}
+		
+		return place;
+	}
 }	

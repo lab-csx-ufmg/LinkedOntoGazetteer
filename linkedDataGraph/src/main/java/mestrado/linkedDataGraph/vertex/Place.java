@@ -49,9 +49,18 @@ public interface Place extends Entity {
 	
 	@Property("geonamesId")
 	public String getGeonamesId();
+
+	@Property("lgdId")
+	public String getLinkedGeoDataId();
+
+	@Property("lgdId")
+	public void setLinkedGeoDataId(String lgdId);
 	
 	@Property("gnPoint") 
 	public Geoshape getGeonamesPoint();
+
+	@Property("lgdPoint") 
+	public Geoshape getLinkedGeoDataPoint();
 
 	@Property("ontogztId")
 	public String getOntogztId();
@@ -82,6 +91,9 @@ public interface Place extends Entity {
 
 	@Property("gnPoint") 
 	public void setGeonamesPoint(Geoshape point);
+
+	@Property("lgdPoint") 
+	public void setLinkedGeoDataPoint(Geoshape point);
 	
 	@Property("ontogztId")	
 	public void setOntogztId(String ontogazId);

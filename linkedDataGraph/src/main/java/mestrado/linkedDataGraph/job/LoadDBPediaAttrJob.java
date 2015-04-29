@@ -1,7 +1,7 @@
 package mestrado.linkedDataGraph.job;
 
 import mestrado.linkedDataGraph.core.BatchLoadJob;
-import mestrado.linkedDataGraph.core.rdf.Predicate;
+import mestrado.linkedDataGraph.core.rdf.DBPPredicate;
 import mestrado.linkedDataGraph.vertex.EntityType.Type;
 import mestrado.linkedDataGraph.vertex.Name;
 import mestrado.linkedDataGraph.vertex.Place;
@@ -27,10 +27,10 @@ public class LoadDBPediaAttrJob extends BatchLoadJob {
 		String result = "";
 		boolean toLog = false;
 		
-		Predicate predicate = Predicate.valueOf(split[1].substring(split[1].lastIndexOf('/')+1).toUpperCase());
+		DBPPredicate predicate = DBPPredicate.valueOf(split[1].substring(split[1].lastIndexOf('/')+1).toUpperCase());
 		logMsg += predicate.getUri() + "\t\t\t";
 		
-		if(predicate.equals(Predicate.NAME) || predicate.equals(Predicate.NICK)) {
+		if(predicate.equals(DBPPredicate.NAME) || predicate.equals(DBPPredicate.NICK)) {
 			toLog = true;
 			String name = split[2].replaceAll("[\"]", "").replaceAll("@en", "");
 			
@@ -49,7 +49,7 @@ public class LoadDBPediaAttrJob extends BatchLoadJob {
 			
 			logMsg += name + " ("+subjectId+")";
 			
-		} else if(predicate.equals(Predicate.COUNTRY)) {
+		} else if(predicate.equals(DBPPredicate.COUNTRY)) {
 			toLog = true;
 			String objectId = split[2].substring("http://dbpedia.org/resource/".length());
 			if(objectId.equals(subjectId)) {
@@ -69,8 +69,8 @@ public class LoadDBPediaAttrJob extends BatchLoadJob {
 
 			logMsg += (subjectPlace != null ? subjectId : "null(" + subjectId + ")") + "--COUNTRY-->" + (objPlace != null ? objectId : "null(" + objectId + ")");
 			
-		} else if(predicate.equals(Predicate.ISPARTOF) || predicate.equals(Predicate.LOCATION) ||
-				predicate.equals(Predicate.REGION) || predicate.equals(Predicate.STATE)) {
+		} else if(predicate.equals(DBPPredicate.ISPARTOF) || predicate.equals(DBPPredicate.LOCATION) ||
+				predicate.equals(DBPPredicate.REGION) || predicate.equals(DBPPredicate.STATE)) {
 			toLog = true;
 			String objectId = split[2].substring("http://dbpedia.org/resource/".length());
 

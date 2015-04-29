@@ -1,7 +1,7 @@
 package mestrado.linkedDataGraph.core.rdf;
 
 
-public enum Predicate {
+public enum DBPPredicate {
 
 	NAME("http://xmlns.com/foaf/0.1/name"),
 	NICK("http://xmlns.com/foaf/0.1/nick"),
@@ -31,7 +31,7 @@ public enum Predicate {
 
 	private String uri;
 	
-	private Predicate(String uri) {
+	private DBPPredicate(String uri) {
 		this.setUri(uri);
 	}
 

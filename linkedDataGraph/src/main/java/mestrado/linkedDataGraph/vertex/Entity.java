@@ -20,6 +20,11 @@ public interface Entity extends VertexFrame {
 	@Property("freebaseId")
 	public void setFreebaseId(String freebaseId);
 	
+	@Property("official_website")
+	public String getOfficialWebSite();
+	@Property("official_website")
+	public void setOfficialWebSite(String officialWebSite);
+	
 	@Adjacency(label = "related", direction = Direction.OUT)
 	public Iterable<Place> getRelatedPlaces();
 	

@@ -107,7 +107,8 @@ public class LinkedOntoGztSchema extends Schema {
 					if(propType.isEnum()) {
 						this.createUniqueSingleIndex(property.value(), String.class);
 					} else {
-						if(property.value().equals("gnFeatureCode") || property.value().equals("gnFeatureClass")) {
+						if(property.value().equals("gnFeatureCode") || property.value().equals("gnFeatureClass")
+								|| property.value().equals("desc") || property.value().equals("official_website")) {
 							if(this.graph.getType(property.value()) == null) {
 								LinkedOntoGztSchema.LOGGER.debug("Creating index key:" + property.value());
 								this.graph.makeKey(property.value()).dataType(propType).indexed(Vertex.class).make();
