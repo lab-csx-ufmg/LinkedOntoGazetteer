@@ -1,5 +1,7 @@
 package br.ufmg.dcc.linkedontogazetteer.bean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -7,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.primefaces.model.map.Marker;
 import org.springframework.util.StringUtils;
 
 import br.ufmg.dcc.linkedontogazetteer.AppConfiguration;
@@ -29,6 +32,8 @@ public class VertexDetailBean {
 	private VertexClient vertexClient;
 
 	private VertexWrapper vertex;
+	
+	private GMapModelBean mapModelBean; 
 	
 	public Long getId() {
 		return this.id;
@@ -56,6 +61,18 @@ public class VertexDetailBean {
 		if(retrieveById.getResults() != null) {
 			this.vertex = new VertexWrapper(retrieveById.getResults());
 		}
+		
+		List<Marker> markers = new ArrayList<Marker>();
+		
+		if(this.vertex.getDbpediaPoint() != null) {
+			markers.add(new Marker(this.vertex.getDbpediaPoint(), "DBPedia"));
+		}
+
+		if(this.vertex.getGeonamesPoint() != null) {
+			markers.add(new Marker(this.vertex.getGeonamesPoint(), "GeoNames"));
+		}
+		
+		this.mapModelBean = new GMapModelBean(markers);
 	}
 
 	public void setId(Long id) {
@@ -68,5 +85,13 @@ public class VertexDetailBean {
 
 	public void setVertex(VertexWrapper vertex) {
 		this.vertex = vertex;
+	}
+
+	public GMapModelBean getMapModelBean() {
+		return this.mapModelBean;
+	}
+
+	public void setMapModelBean(GMapModelBean mapModelBean) {
+		this.mapModelBean = mapModelBean;
 	}
 }

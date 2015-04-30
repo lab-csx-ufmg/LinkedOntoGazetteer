@@ -11,7 +11,13 @@ public class ResultObject {
 	private String dbpediaId;
 	private String geonamesId;
 	private String freebaseId;
-
+	private String dbpPoint;
+	private String gnPoint;
+	private String gnFeatureClass;
+	private String gnFeatureCode;
+	private String official_website;
+	
+	
 	public Long get_id() {
 		return this._id;
 	}
@@ -58,6 +64,46 @@ public class ResultObject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDbpPoint() {
+		return this.dbpPoint;
+	}
+
+	public void setDbpPoint(String dbpPoint) {
+		this.dbpPoint = dbpPoint;
+	}
+
+	public String getGnPoint() {
+		return this.gnPoint;
+	}
+
+	public void setGnPoint(String gnPoint) {
+		this.gnPoint = gnPoint;
+	}
+
+	public String getGnFeatureClass() {
+		return this.gnFeatureClass;
+	}
+
+	public void setGnFeatureClass(String gnFeatureClass) {
+		this.gnFeatureClass = gnFeatureClass;
+	}
+
+	public String getGnFeatureCode() {
+		return this.gnFeatureCode;
+	}
+
+	public void setGnFeatureCode(String gnFeatureCode) {
+		this.gnFeatureCode = gnFeatureCode;
+	}
+
+	public String getOfficial_website() {
+		return this.official_website;
+	}
+
+	public void setOfficial_website(String officialWebsite) {
+		this.official_website = officialWebsite;
 	}
 
 }
