@@ -48,6 +48,10 @@ public class VertexWrapper {
 		if(resultObject.getGnPoint() != null) {
 			this.geonamesPoint = this.createPointFromString(resultObject.getGnPoint());
 		}
+
+		if(resultObject.getFrbPoint() != null) {
+			this.freebasePoint = this.createPointFromString(resultObject.getFrbPoint());
+		}
 		
 		if(resultObject.getGnFeatureClass() != null) {
 			this.gnFeatureClass = resultObject.getGnFeatureClass();

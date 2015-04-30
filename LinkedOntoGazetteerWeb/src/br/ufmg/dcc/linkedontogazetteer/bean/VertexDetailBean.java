@@ -71,6 +71,10 @@ public class VertexDetailBean {
 		if(this.vertex.getGeonamesPoint() != null) {
 			markers.add(new Marker(this.vertex.getGeonamesPoint(), "GeoNames"));
 		}
+
+		if(this.vertex.getFreebasePoint() != null) {
+			markers.add(new Marker(this.vertex.getFreebasePoint(), "Freebase"));
+		}
 		
 		this.mapModelBean = new GMapModelBean(markers);
 	}

@@ -13,6 +13,7 @@ public class ResultObject {
 	private String freebaseId;
 	private String dbpPoint;
 	private String gnPoint;
+	private String frbPoint;
 	private String gnFeatureClass;
 	private String gnFeatureCode;
 	private String official_website;
@@ -80,6 +81,14 @@ public class ResultObject {
 
 	public void setGnPoint(String gnPoint) {
 		this.gnPoint = gnPoint;
+	}
+
+	public String getFrbPoint() {
+		return this.frbPoint;
+	}
+
+	public void setFrbPoint(String frbPoint) {
+		this.frbPoint = frbPoint;
 	}
 
 	public String getGnFeatureClass() {
