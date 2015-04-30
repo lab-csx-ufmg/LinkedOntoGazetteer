@@ -1,5 +1,6 @@
 package br.ufmg.dcc.linkedontogazetteer.rexster.rest.api;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.http.HttpMethod;
 
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
@@ -24,7 +25,8 @@ public class GremlinRESTClient extends RESTClient {
 	
 	public Response getVerticesByName(String name) {
 		String queryText = "g.V('name','%s').out('isName')";
-		System.out.println(String.format(queryText, name));
-		return this.exchange(GremlinRESTClient.GREMILIN_BASE_URI + String.format(queryText, name), HttpMethod.GET, Response.class);
+		String formattedQuery = String.format(queryText, StringEscapeUtils.escapeJava(name));
+		System.out.println(formattedQuery);
+		return this.exchange(GremlinRESTClient.GREMILIN_BASE_URI + formattedQuery, HttpMethod.GET, Response.class);
 	}
 }
