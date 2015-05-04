@@ -5,9 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mestrado.linkedDataGraph.core.schema.Schema;
+import mestrado.linkedDataGraph.edge.EntityType2EntityRel;
+import mestrado.linkedDataGraph.edge.NPlace2PlaceRel;
+import mestrado.linkedDataGraph.edge.Place2NPlaceRel;
+import mestrado.linkedDataGraph.edge.Related;
 import mestrado.linkedDataGraph.vertex.Entity;
 import mestrado.linkedDataGraph.vertex.EntityType;
 import mestrado.linkedDataGraph.vertex.Name;
+import mestrado.linkedDataGraph.vertex.NonPlace;
 import mestrado.linkedDataGraph.vertex.Place;
 
 import org.apache.log4j.Logger;
@@ -33,6 +38,12 @@ public class LinkedOntoGztSchema extends Schema {
 		LinkedOntoGztSchema.VERTEX_SET.add(Entity.class);
 		LinkedOntoGztSchema.VERTEX_SET.add(Name.class);
 		LinkedOntoGztSchema.VERTEX_SET.add(Place.class);
+		LinkedOntoGztSchema.VERTEX_SET.add(NonPlace.class);
+		
+		LinkedOntoGztSchema.EDGE_SET.add(Related.class);
+		LinkedOntoGztSchema.EDGE_SET.add(Place2NPlaceRel.class);
+		LinkedOntoGztSchema.EDGE_SET.add(NPlace2PlaceRel.class);
+		LinkedOntoGztSchema.EDGE_SET.add(EntityType2EntityRel.class);
 	}
 	
 	public LinkedOntoGztSchema(TitanGraph graph) {
@@ -108,7 +119,8 @@ public class LinkedOntoGztSchema extends Schema {
 						this.createUniqueSingleIndex(property.value(), String.class);
 					} else {
 						if(property.value().equals("gnFeatureCode") || property.value().equals("gnFeatureClass")
-								|| property.value().equals("desc") || property.value().equals("official_website")) {
+								|| property.value().equals("desc") || property.value().equals("official_website")
+								|| property.value().equals("nonplace")) {
 							if(this.graph.getType(property.value()) == null) {
 								LinkedOntoGztSchema.LOGGER.debug("Creating index key:" + property.value());
 								this.graph.makeKey(property.value()).dataType(propType).indexed(Vertex.class).make();

@@ -1,6 +1,6 @@
 package mestrado.linkedDataGraph.edge;
 
-import mestrado.linkedDataGraph.vertex.Entity;
+import mestrado.linkedDataGraph.vertex.NonPlace;
 import mestrado.linkedDataGraph.vertex.Place;
 
 import com.tinkerpop.frames.InVertex;
@@ -12,6 +12,6 @@ public interface Place2NPlaceRel extends Related {
 	public Place getPlace();
 	
 	@InVertex
-	public Entity getNonPlace();
+	public NonPlace getNonPlace();
 	
 }

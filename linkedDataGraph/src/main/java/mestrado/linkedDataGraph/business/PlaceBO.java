@@ -2,8 +2,10 @@ package mestrado.linkedDataGraph.business;
 
 import java.util.Set;
 
+import mestrado.linkedDataGraph.edge.Place2NPlaceRel;
 import mestrado.linkedDataGraph.vertex.EntityType.Type;
 import mestrado.linkedDataGraph.vertex.Name;
+import mestrado.linkedDataGraph.vertex.NonPlace;
 import mestrado.linkedDataGraph.vertex.Place;
 
 import com.thinkaurelius.titan.core.TitanGraph;
@@ -137,4 +139,24 @@ public class PlaceBO extends BusinessObject {
 		
 		return place;
 	}
+	
+	public Place2NPlaceRel addRelatedNonPlace(Place place, NonPlace nonPlace, String uri) {
+		Place2NPlaceRel edge = null;
+		double m0 = System.currentTimeMillis();
+		Boolean relatedWithNonPLace = nonPlace.isRelatedWithPLace(uri, place.getFreebaseId());
+		double m1 = System.currentTimeMillis();
+		
+		this.getLogger().info("@TIME@IS RELATED:\t" + (m1-m0) + "ms");
+		
+		if(!relatedWithNonPLace) {
+			edge = place.addRelatedEntity(nonPlace);
+			edge.setPredicate(uri);
+			
+		} else {
+			this.getLogger().warn("Place NonPlace relationship already defined:\t" + place + "\t" +uri + "\t" + nonPlace);
+		}
+		
+		return edge;
+	}
+	
 }	

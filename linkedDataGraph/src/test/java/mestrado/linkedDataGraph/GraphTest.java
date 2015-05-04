@@ -8,6 +8,7 @@ import mestrado.linkedDataGraph.vertex.Entity;
 import mestrado.linkedDataGraph.vertex.EntityType;
 import mestrado.linkedDataGraph.vertex.EntityType.Type;
 import mestrado.linkedDataGraph.vertex.Name;
+import mestrado.linkedDataGraph.vertex.NonPlace;
 import mestrado.linkedDataGraph.vertex.Place;
 
 import org.apache.commons.configuration.BaseConfiguration;
@@ -50,10 +51,10 @@ public class GraphTest {
 	private static EntityType placeType;
 	private static EntityType nonPlaceType;
 	
-	private static Entity dilma;
-	private static Entity obama;
-	private static Entity santosDrummond;
-	private static Entity esmeraldaStone;
+	private static NonPlace dilma;
+	private static NonPlace obama;
+	private static NonPlace santosDrummond;
+	private static NonPlace esmeraldaStone;
 
 	
 	private static void doEntityPropTest(Entity entity, String label) {
@@ -103,10 +104,10 @@ public class GraphTest {
     	
 		GraphTest.graph = SchemaGraphFactory.open(LinkedOntoGztSchema.class, config);
 
-		GraphTest.dilma = GraphTest.graph.addVertex(null, Entity.class);
-		GraphTest.obama = GraphTest.graph.addVertex(null, Entity.class);
-		GraphTest.santosDrummond = GraphTest.graph.addVertex(null, Entity.class);
-		GraphTest.esmeraldaStone = GraphTest.graph.addVertex(null, Entity.class);
+		GraphTest.dilma = GraphTest.graph.addVertex(null, NonPlace.class);
+		GraphTest.obama = GraphTest.graph.addVertex(null, NonPlace.class);
+		GraphTest.santosDrummond = GraphTest.graph.addVertex(null, NonPlace.class);
+		GraphTest.esmeraldaStone = GraphTest.graph.addVertex(null, NonPlace.class);
 		
 		GraphTest.brasil = GraphTest.graph.addVertex(null, Place.class);
 		GraphTest.mg = GraphTest.graph.addVertex(null, Place.class);
@@ -246,7 +247,7 @@ public class GraphTest {
 		
 		Assert.assertTrue(Iterables.contains(bh2.getContainedBy(), GraphTest.mg));
 		Assert.assertTrue(Iterables.contains(bh2.getContainedBy(), GraphTest.brasil));
-		Assert.assertTrue(Iterables.contains(bh2.getRelatedEntities(), GraphTest.dilma));
+		Assert.assertTrue(Iterables.contains(bh2.getRelatedNonPlaces(), GraphTest.dilma));
 		
 				
 		

@@ -8,6 +8,7 @@ import com.tinkerpop.frames.Adjacency;
 import com.tinkerpop.frames.Incidence;
 import com.tinkerpop.frames.Property;
 import com.tinkerpop.frames.annotations.gremlin.GremlinGroovy;
+import com.tinkerpop.frames.annotations.gremlin.GremlinParam;
 
 public interface Place extends Entity {
 
@@ -19,10 +20,13 @@ public interface Place extends Entity {
 	@Adjacency(label = "country", direction = Direction.OUT)
 	public void addCountry(Place place);
 	@Incidence(label = "related")
-	public Place2NPlaceRel addRelatedEntity(Entity entity);
+	public Place2NPlaceRel addRelatedEntity(NonPlace entity);
 	
 	@GremlinGroovy("it.as('x').in('isName').out('isName').except('x').has('dbpediaId').hasNot('geonamesId')")
     public Iterable<Place> getAmbiguosDbPediaPlaces();
+
+	@GremlinGroovy(value="it.outE('related').has('predicate', predicate).inV().has('freebaseId', nonplaceId).hasNext()", frame=false)
+	public Boolean isRelatedWithNonPLace(@GremlinParam("predicate") String predicate, @GremlinParam("nonplaceId") String nonplaceId);
 	
 	@Adjacency(label = "containedBy", direction = Direction.OUT)
 	public Iterable<Place> getContainedBy();
@@ -31,6 +35,9 @@ public interface Place extends Entity {
 	public Iterable<Place> getContains();
 	@Adjacency(label = "country", direction = Direction.OUT)
 	public Iterable<Place> getCountries();
+
+	@Adjacency(label = "related", direction = Direction.OUT)
+	public Iterable<NonPlace> getRelatedNonPlaces();
 
 	@Property("dbpPoint") 
 	public Geoshape getDBPediaPoint();
@@ -65,11 +72,8 @@ public interface Place extends Entity {
 	@Property("ontogztId")
 	public String getOntogztId();
 	
-	@Adjacency(label = "related", direction = Direction.OUT)
-	public Iterable<Entity> getRelatedEntities();
-	
 	@Incidence(label = "related")
-	public Iterable<Place2NPlaceRel> getRelatedEntitiesEdge();
+	public Iterable<Place2NPlaceRel> getRelatedNonPlaceEdges();
 
 	@Property("dbpPoint") 
 	public void setDBPediaPoint(Geoshape point);
