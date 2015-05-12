@@ -10,6 +10,12 @@ import com.tinkerpop.frames.VertexFrame;
 
 public interface Entity extends VertexFrame {
 
+	@Property("nonplace")
+	public Boolean getNonPlace();
+	
+	@Property("nonplace")
+	public void setNonPlace(Boolean nonPlace);
+	
 	@Property("dbpediaId")
 	public String getDbpediaId();
 	@Property("dbpediaId")

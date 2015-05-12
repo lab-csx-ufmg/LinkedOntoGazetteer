@@ -3,7 +3,6 @@ package mestrado.linkedDataGraph.business;
 import java.util.Set;
 
 import mestrado.linkedDataGraph.edge.Place2NPlaceRel;
-import mestrado.linkedDataGraph.vertex.EntityType.Type;
 import mestrado.linkedDataGraph.vertex.Name;
 import mestrado.linkedDataGraph.vertex.NonPlace;
 import mestrado.linkedDataGraph.vertex.Place;
@@ -103,7 +102,7 @@ public class PlaceBO extends BusinessObject {
 	public Place retrievePlaceByDBPediaId(String dbPediaId) {
 		Place place = this.getFramedVertex("dbpediaId", dbPediaId, Place.class);
 		
-		if(place != null && (place.getType() != null && !place.getType().getType().equals(Type.PLACE))) {
+		if(place != null && place.getNonPlace() != null && place.getNonPlace()) {
 			place = null;
 		}
 		
@@ -113,9 +112,9 @@ public class PlaceBO extends BusinessObject {
 	public Place retrievePlaceByFreebaseId(String freebaseId) {
 		Place place = this.getFramedVertex("freebaseId", freebaseId, Place.class);
 		
-//		if(place != null && (place.getType() != null && !place.getType().getType().equals(Type.PLACE))) {
-//			place = null;
-//		}
+		if(place != null && place.getNonPlace() != null && place.getNonPlace()) {
+			place = null;
+		}
 		
 		return place;
 	}
@@ -123,7 +122,7 @@ public class PlaceBO extends BusinessObject {
 	public Place retrievePlaceByGeonamesId(String geonamesId) {
 		Place place = this.getFramedVertex("geonamesId", geonamesId, Place.class);
 		
-		if(place != null && (place.getType() != null  && !place.getType().getType().equals(Type.PLACE))) {
+		if(place != null && place.getNonPlace() != null && place.getNonPlace()) {
 			place = null;
 		}
 		
@@ -133,9 +132,9 @@ public class PlaceBO extends BusinessObject {
 	public Place retrievePlaceByLinkedGeoDataId(String lgdId) {
 		Place place = this.getFramedVertex("lgdId", lgdId, Place.class);
 		
-//		if(place != null && (place.getType() != null  && !place.getType().getType().equals(Type.PLACE))) {
-//			place = null;
-//		}
+		if(place != null && place.getNonPlace() != null && place.getNonPlace()) {
+			place = null;
+		}
 		
 		return place;
 	}

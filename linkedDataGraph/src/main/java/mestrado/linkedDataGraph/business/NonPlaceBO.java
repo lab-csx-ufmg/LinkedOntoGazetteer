@@ -19,11 +19,19 @@ public class NonPlaceBO extends BusinessObject {
 	public NonPlace retrieveNonPlaceByFreebaseId(String freebaseId) {
 		NonPlace nonP = this.getFramedVertex("freebaseId", freebaseId, NonPlace.class);
 		
+		if(nonP != null && (nonP.getNonPlace() == null || !nonP.getNonPlace())) {
+			nonP = null;
+		}
+		
 		return nonP;
 	}
 
 	public NonPlace retrieveNonPlaceByDbPediaId(String dbpediaId) {
 		NonPlace nonP = this.getFramedVertex("dbpediaId", dbpediaId, NonPlace.class);
+		
+		if(nonP != null && (nonP.getNonPlace() == null || !nonP.getNonPlace())) {
+			nonP = null;
+		}
 		
 		return nonP;
 	}
@@ -51,8 +59,8 @@ public class NonPlaceBO extends BusinessObject {
 			nonPlaceVertex = this.graph.addVertex(null, NonPlace.class);
 			nonPlaceVertex.setDbpediaId(dbpediaId);
 			nonPlaceVertex.setNonPlace(true);
-		}
-		
+		} 
+
 		return nonPlaceVertex;
 	}
 	
