@@ -17,7 +17,7 @@ public class ResultObject {
 	private String gnFeatureClass;
 	private String gnFeatureCode;
 	private String official_website;
-	
+	private Boolean nonplace;
 	
 	public Long get_id() {
 		return this._id;
@@ -113,6 +113,14 @@ public class ResultObject {
 
 	public void setOfficial_website(String officialWebsite) {
 		this.official_website = officialWebsite;
+	}
+
+	public Boolean getNonplace() {
+		return this.nonplace;
+	}
+
+	public void setNonplace(Boolean nonPlace) {
+		this.nonplace = nonPlace;
 	}
 
 }

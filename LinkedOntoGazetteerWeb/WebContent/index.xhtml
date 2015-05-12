@@ -62,13 +62,13 @@ tbody {
 			<p:outputLabel value="" />
 			<p:ajaxStatus>
 				<f:facet name="start">
-					<h:outputText value="Searching for ambiguous place..." />
+					<h:outputText value="Searching... The ranking process can take a while..." />
 				</f:facet>
 				<f:facet name="complete">
 					<h:outputText rendered="#{searchBean.queryTime gt 0}" value="Query time: #{searchBean.queryTime} ms" />
 				</f:facet>
 			</p:ajaxStatus>
-			<p:dataGrid var="record" value="#{searchBean.results}" columns="4"
+			<p:dataGrid var="record" value="#{searchBean.results}" columns="1"
 				paginator="true" paginatorPosition="bottom" emptyMessage=""
 				paginatorAlwaysVisible="false" style="border: 0">
 				<p:column>
@@ -78,7 +78,7 @@ tbody {
 								<tr>
 									<td><h:graphicImage name="images/favicon.ico" /></td>
 									<td style="padding-top: 7px;"><h:outputText
-											value="Place ID: #{record.id}" /></td>
+											value="#{record.nonPlace ? 'Non' : ''}Place ID: #{record.id}" /></td>
 								</tr>
 							</table>
 						</f:facet>
@@ -88,7 +88,7 @@ tbody {
 								rendered="#{not empty record.geonamesURL}">
 								<h:outputLink value="#{record.geonamesURL}" title="GeoNames">
 									<h:graphicImage name="images/globe.png"
-										style="width: 15%;margin-right: 10px;" />
+										style="width: 23px;margin-right: 10px;" />
 									<h:outputText value="GeoNames" />
 								</h:outputLink>
 							</p:lightBox>
@@ -104,7 +104,7 @@ tbody {
 								rendered="#{not empty record.wikipediaURL}">
 								<h:outputLink value="#{record.wikipediaURL}" title="Wikipedia">
 									<h:graphicImage name="images/wikipedialogo.png"
-										style="width: 15%;margin-right: 10px;" />
+										style="width: 23px;margin-right: 10px;" />
 									<h:outputText value="Wikipedia" />
 								</h:outputLink>
 							</p:lightBox>
@@ -112,10 +112,16 @@ tbody {
 								rendered="#{not empty record.freebaseURL}">
 								<h:outputLink value="#{record.freebaseURL}" title="Freebase">
 									<h:graphicImage name="images/freebase.png"
-										style="width: 15%;margin-right: 10px;" />
+										style="width: 23px;margin-right: 10px;" />
 									<h:outputText value="Freebase" />
 								</h:outputLink>
 							</p:lightBox>
+							<h:outputText rendered="#{record.relatedPlacesCount > 0}" value="Related Places: #{record.relatedPlacesCount > 0 ? record.relatedPlacesCount : '0'}" />
+							<h:outputText rendered="#{record.relatedNonPlacesCount > 0}" value="Related NonPlaces: #{record.relatedNonPlacesCount > 0 ? record.relatedNonPlacesCount : '0'}" />
+							<p:dataGrid var="name" value="#{record.names}"
+									columns="10">
+									<p:outputLabel value="#{name}" style="font-size: 11px;"/>
+							</p:dataGrid>
 						</h:panelGrid>
 					</p:panel>
 				</p:column>

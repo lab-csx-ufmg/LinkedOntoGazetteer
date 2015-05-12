@@ -1,5 +1,8 @@
 package br.ufmg.dcc.linkedontogazetteer.view;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.primefaces.model.map.LatLng;
 
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.ResultObject;
@@ -23,6 +26,16 @@ public class VertexWrapper {
 	private String officialWebsite;
 	private String gnFeatureCode;
 	private String gnFeatureClass;
+	
+	private boolean nonPlace;
+	
+	private Integer relatedNonPlacesCount;
+	private boolean relatedNonPlacesUpdated;
+
+	private Integer relatedPlacesCount;
+	private boolean relatedPlacesUpdated;
+
+	private final SortedSet<String> names = new TreeSet<String>();
 
 	public VertexWrapper(ResultObject resultObject) {
 		this.id = resultObject.get_id();
@@ -64,6 +77,8 @@ public class VertexWrapper {
 		if(resultObject.getOfficial_website() != null) {
 			this.officialWebsite = resultObject.getOfficial_website();
 		}
+		
+		this.nonPlace = resultObject.getNonplace() != null ? resultObject.getNonplace() : false; 
 		
 	}
 
@@ -168,5 +183,51 @@ public class VertexWrapper {
 
 	public void setGnFeatureClass(String gnFeatureClass) {
 		this.gnFeatureClass = gnFeatureClass;
+	}
+
+	public boolean isNonPlace() {
+		return this.nonPlace;
+	}
+
+	public void setNonPlace(boolean nonPlace) {
+		this.nonPlace = nonPlace;
+	}
+
+	public boolean isRelatedNonPlacesUpdated() {
+		return this.relatedNonPlacesUpdated;
+	}
+
+	protected void setRelatedNonPlacesUpdated(boolean relatedNonPlacesUpdated) {
+		this.relatedNonPlacesUpdated = relatedNonPlacesUpdated;
+	}
+
+	public Integer getRelatedNonPlacesCount() {
+		return this.relatedNonPlacesCount;
+	}
+
+	public void setRelatedNonPlacesCount(Integer relatedNonPlacesCount) {
+		this.relatedNonPlacesCount = relatedNonPlacesCount;
+		this.setRelatedNonPlacesUpdated(true);
+	}
+
+	public Integer getRelatedPlacesCount() {
+		return this.relatedPlacesCount;
+	}
+
+	public void setRelatedPlacesCount(Integer relatedPlacesCount) {
+		this.relatedPlacesCount = relatedPlacesCount;
+		this.setRelatedPlacesUpdated(true);
+	}
+
+	public boolean isRelatedPlacesUpdated() {
+		return this.relatedPlacesUpdated;
+	}
+
+	protected void setRelatedPlacesUpdated(boolean relatedPlacesUpdated) {
+		this.relatedPlacesUpdated = relatedPlacesUpdated;
+	}
+
+	public SortedSet<String> getNames() {
+		return this.names;
 	}
 }

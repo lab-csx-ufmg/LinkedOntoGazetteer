@@ -1,9 +1,13 @@
 package br.ufmg.dcc.linkedontogazetteer.bean;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+
+import org.springframework.util.StringUtils;
 
 import br.ufmg.dcc.linkedontogazetteer.AppConfiguration;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremlinRESTClient;
@@ -41,6 +45,56 @@ public class SearchBean {
 		for(ResultObject robj : response.getResults()) {
 			this.results.add(new VertexWrapper(robj));
 		}
+		final GremlinRESTClient client = this.client;
+		Collections.sort(this.results, new Comparator<VertexWrapper>() {
+			
+			private Double linkCount(VertexWrapper v) {
+				System.out.println("loading vertex info: " + v.getId());
+				double count = 0.0;
+				if(v.getDbpediaURL() != null) {
+					count=+2;
+				}
+				if(v.getFreebaseURL() != null) {
+					count++;
+				}
+				
+//				if(count > 0 && !v.isRelatedNonPlacesUpdated()) {
+//					CountResponse response = client.countRelatedNonPlaces(v.getId());
+//					v.setRelatedNonPlacesCount(response.getCount());
+//				}
+				
+//				if(!v.isRelatedPlacesUpdated()) {
+//					CountResponse response = client.countRelatedPlaces(v.getId());
+//					v.setRelatedPlacesCount(response.getCount());
+//				}
+				
+				if(v.getGeonamesURL() != null) {
+					count++;
+				}
+				if(v.getOfficialWebsite() != null) {
+					count++;
+				}
+//				count+=v.getRelatedPlacesCount();
+				
+				if(v.getNames().isEmpty()) {
+					Response allNames = client.getAllNames(v.getId());
+					
+					for (ResultObject resultObject : allNames.getResults()) {
+						if (!StringUtils.isEmpty(resultObject.getName())) {
+							v.getNames().add(resultObject.getName());
+						}
+					}
+				}
+				double rank = count + Math.min(v.getNames().size()/10.0, 3.0);
+				System.out.println("[Done] loading vertex info: " + v.getId() + "\t" + rank);
+				return rank;
+			}
+			
+			@Override
+			public int compare(VertexWrapper o1, VertexWrapper o2) {
+				return (-1) * this.linkCount(o1).compareTo(this.linkCount(o2));
+			}
+		});
 	}
 
 	public String getQueryText() {
