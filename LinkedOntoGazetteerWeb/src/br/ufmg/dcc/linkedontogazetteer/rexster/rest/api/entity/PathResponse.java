@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Response {
+public class PathResponse {
 
 	private String version;
 	private Double queryTime;
-	private ArrayList<ResultObject> results;
+	private ArrayList<ArrayList<ResultObject>> results;
 
 	public Double getQueryTime() {
 		return this.queryTime;
 	}
 
-	public ArrayList<ResultObject> getResults() {
+	public ArrayList<ArrayList<ResultObject>> getResults() {
 		return this.results;
 	}
 
@@ -31,7 +31,7 @@ public class Response {
 		this.queryTime = queryTime;
 	}
 
-	public void setResults(ArrayList<ResultObject> results) {
+	public void setResults(ArrayList<ArrayList<ResultObject>> results) {
 		this.results = results;
 	}
 

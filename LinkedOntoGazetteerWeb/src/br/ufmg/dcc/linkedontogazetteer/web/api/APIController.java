@@ -10,28 +10,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ufmg.dcc.linkedontogazetteer.AppConfiguration;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.GremlinRESTClient;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.BooleanResponse;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.PathResponse;
+import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
+
 @ResponseBody
 @RestController
 public class APIController {
-
+	private static final AppConfiguration config = AppConfiguration.getConfiguration();
+	private final GremlinRESTClient client = new GremlinRESTClient(APIController.config.getRexsterUser(), APIController.config.getRexsterPassword());;
+	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/isPlace/{id}")
-	public String isPlace(@PathVariable Long id) {
-		return new String("Não está implementado " + id);
+	public Response isPlace(@PathVariable Long id) {
+		return this.client.isPlace(id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/name/place/{placeId}")
-	public String retrieveNamesByPlaceId(@PathVariable Long placeId) {
-		return new String("Não está implementado " + placeId);
+	public Response retrieveNamesByPlaceId(@PathVariable Long placeId) {
+		return this.client.getNamesByPlaceId(placeId);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/name/{name}")
-	public String retrievePlacesByName(@PathVariable String name) {
-		return new String("Não está implementado " + name);
+	public Response retrievePlacesByName(@PathVariable String name) {
+		return this.client.getPlacesByName(name);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/entity/name/{name}")
-	public String retrieveRelatedPlacesByEntityName(@PathVariable String name) {
-		return new String("Não está implementado " + name);
+	public Response retrieveRelatedPlacesByEntityName(@PathVariable String name) {
+		return this.client.getPlacesRelatedWithEntity(name);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/inRectangle/{reference}")
@@ -41,37 +49,37 @@ public class APIController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/path/{fromPlaceId}/{toPlaceId}")
-	public String retrievePath(@PathVariable Long fromPlaceId, @PathVariable Long toPlaceId, @RequestParam("maxSize") int maxSize) {
-		return new String("Não está implementado " + fromPlaceId + " -> " + toPlaceId + " [" + maxSize + "]");
+	public PathResponse retrievePath(@PathVariable Long fromPlaceId, @PathVariable Long toPlaceId, @RequestParam("maxSize") int maxSize) {
+		return this.client.getPath(fromPlaceId, toPlaceId, maxSize);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/name/containedBy/{placeNameA}/{placeNameB}")
-	public String isContainedBy(@PathVariable String placeNameA, @PathVariable String placeNameB) {
-		return new String("Não está implementado " + placeNameA + " -- containedBy -> " + placeNameB);
+	public BooleanResponse isContainedBy(@PathVariable String placeNameA, @PathVariable String placeNameB) {
+		return this.client.isContainedBy(placeNameA, placeNameB);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/id/containedBy/{placeIdA}/{placeIdB}")
-	public String isContainedBy(@PathVariable Long placeIdA, @PathVariable Long placeIdB) {
-		return new String("Não está implementado " + placeIdA + " -- containedBy -> " + placeIdB);
+	public BooleanResponse isContainedBy(@PathVariable Long placeIdA, @PathVariable Long placeIdB) {
+		return this.client.isContainedBy(placeIdA, placeIdB);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/name/adjacentList/{name}")
 	public String retrievePlaceAdjacentListByName(@PathVariable String name) {
-		return new String("Não está implementado " + name);
+		return this.client.retrievePlaceAdjacentListByName(name);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/id/adjacentList/{id}")
 	public String retrievePlaceAdjacentList(@PathVariable Long id) {
-		return new String("Não está implementado " + id);
+		return this.client.retrievePlaceAdjacentListByName(id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/entity/relatedPlace/{placeId}")
-	public String retrieveRelatedEntities(Long placeId) {
-		return new String("Não está implementado " + placeId);
+	public Response retrieveRelatedEntities(Long placeId) {
+		return this.client.retrieveRelatedEntities(placeId);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/entity/name/{name}")
-	public String retrieveAllEntitiesByName(@PathVariable String name) {
-		return new String("Não está implementado " + name);
+	public Response retrieveAllEntitiesByName(@PathVariable String name) {
+		return this.client.retrieveEntitiesByName(name);
 	}
 }
