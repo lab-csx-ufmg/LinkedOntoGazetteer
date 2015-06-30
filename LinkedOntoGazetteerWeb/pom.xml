@@ -156,5 +156,5 @@
 		</dependency>
 	</dependencies>
 	<name>Linked OntoGazetteer</name>
-	<url>http://mgeo00.cloudapp.net:8880/linkedOntoGazetteerWeb/</url>
+	<url>http://sandwich.lbd.dcc.ufmg.br:8880/linkedOntoGazetteerWeb/</url>
 </project>

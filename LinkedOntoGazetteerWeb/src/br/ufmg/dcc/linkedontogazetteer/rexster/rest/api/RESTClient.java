@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 public abstract class RESTClient {
 
-	protected static final String BASE_URI = "http://mgeo00.cloudapp.net:8182/graphs/LinkedOntoGazetteer/"; 
+	protected static final String BASE_URI = "http://sandwich.lbd.dcc.ufmg.br:8182/graphs/LinkedOntoGazetteer/"; 
 	
 	protected final HttpHeaders header;
 

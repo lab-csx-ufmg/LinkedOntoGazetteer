@@ -11,7 +11,7 @@ import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
 
 public class GremlinRESTClient extends RESTClient {
 
-	protected static final String GREMILIN_BASE_URI = "http://mgeo00.cloudapp.net:8182/graphs/LinkedOntoGazetteer/tp/gremlin?script="; 
+	protected static final String GREMILIN_BASE_URI = "http://sandwich.lbd.dcc.ufmg.br:8182/graphs/LinkedOntoGazetteer/tp/gremlin?script="; 
 	
 	public GremlinRESTClient(byte[] encodedAuth) {
 		super(encodedAuth);
