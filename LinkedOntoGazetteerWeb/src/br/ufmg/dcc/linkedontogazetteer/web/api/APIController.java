@@ -20,7 +20,7 @@ import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
 @RestController
 public class APIController {
 	private static final AppConfiguration config = AppConfiguration.getConfiguration();
-	private final GremlinRESTClient client = new GremlinRESTClient(APIController.config.getRexsterUser(), APIController.config.getRexsterPassword());;
+	private final GremlinRESTClient client = new GremlinRESTClient(APIController.config.getRexsterUser(), APIController.config.getRexsterPassword(), APIController.config.getRexsterHost());
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/isPlace/{id}")
 	public Response isPlace(@PathVariable Long id) {
@@ -45,7 +45,7 @@ public class APIController {
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/inRectangle/{reference}")
 	public String retrievePlacesInRectangle(@RequestParam("ax") int ax, @RequestParam("ay") int ay, @RequestParam("bx") int bx,
 			@RequestParam("by") int by, @PathVariable String reference) {
-		return new String("Não está implementado " + reference + " - a: " + new Point(ax, ay) + "b: " + new Point(bx, by));
+		return new String("Nï¿½o estï¿½ implementado " + reference + " - a: " + new Point(ax, ay) + "b: " + new Point(bx, by));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/place/path/{fromPlaceId}/{toPlaceId}")
