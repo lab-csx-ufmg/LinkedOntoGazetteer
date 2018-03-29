@@ -45,8 +45,8 @@ public class VertexDetailBean {
 
 	@PostConstruct
 	public void init() {
-		this.gremlinClient = new GremlinRESTClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword());
-		this.vertexClient = new VertexClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword());
+		this.gremlinClient = new GremlinRESTClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword(), VertexDetailBean.config.getRexsterHost());
+		this.vertexClient = new VertexClient(VertexDetailBean.config.getRexsterUser(), VertexDetailBean.config.getRexsterPassword(), VertexDetailBean.config.getRexsterHost());
 		
 		Response allNames = this.gremlinClient.getAllNames(this.id);
 

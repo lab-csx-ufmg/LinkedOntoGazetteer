@@ -10,20 +10,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public abstract class RESTClient {
-
-	protected static final String BASE_URI = "http://sandwich.lbd.dcc.ufmg.br:8182/graphs/LinkedOntoGazetteer/"; 
+	// TODO: Remove hardcoded url and set as a env parameter
+	// http://sandwich.lbd.dcc.ufmg.br:8182
+	protected static final String BASE_ENDPOINT = "/graphs/LinkedOntoGazetteer";
 	
 	protected final HttpHeaders header;
+	protected final String baseUrl;
 
 	protected final RestTemplate restTemplate;
-	public RESTClient(byte[] encodedAuth) {
+	public RESTClient(byte[] encodedAuth, String baseUrl) {
 		this.restTemplate = new RestTemplate();
 		this.header = this.createHeaders(encodedAuth);
+		this.baseUrl = baseUrl;
 	}
 	
-	public RESTClient(String username, String password) {
+	public RESTClient(String username, String password, String baseUrl) {
 		this.restTemplate = new RestTemplate();
 		this.header = this.createHeaders(username, password);
+		this.baseUrl = baseUrl;
+	}
+	
+	// singleton
+	protected String requestEndpoint() { return ""; }
+	
+	protected String getRequestURI () {
+		return this.baseUrl + BASE_ENDPOINT + requestEndpoint();
 	}
 
 	private HttpHeaders createHeaders(final byte[] encodedAuth) {

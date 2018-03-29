@@ -27,7 +27,7 @@ public class SearchBean {
 	
 	
 	public SearchBean() {
-		this.client = new GremlinRESTClient(SearchBean.config.getRexsterUser(), SearchBean.config.getRexsterPassword());
+		this.client = new GremlinRESTClient(SearchBean.config.getRexsterUser(), SearchBean.config.getRexsterPassword(), SearchBean.config.getRexsterHost());
 	}
 	
 	public void doQuery() {

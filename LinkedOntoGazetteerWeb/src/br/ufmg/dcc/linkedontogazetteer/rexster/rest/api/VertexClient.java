@@ -6,20 +6,20 @@ import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.Response;
 import br.ufmg.dcc.linkedontogazetteer.rexster.rest.api.entity.SingleResultObjectResponse;
 
 public class VertexClient extends RESTClient {
-
-	private static final String KEY_VALUE_ENDPOINT = "vertices?key={key}&value={value}";
+	protected static final String REQUEST_ENDPOINT = "/vertices";
 	
-	public VertexClient(String username, String password) {
-		super(username, password);
+	public VertexClient(String username, String password, String baseUrl) {
+		super(username, password, baseUrl);
 	}
 	
+	@Override protected String requestEndpoint() { return REQUEST_ENDPOINT; }
+	
 	public Response searchByKey(String key, String value) {
-		return this.exchange(RESTClient.BASE_URI + VertexClient.KEY_VALUE_ENDPOINT, HttpMethod.GET, Response.class, key, value);
+		return this.exchange(getRequestURI() + "?key={key}&value={value}", HttpMethod.GET, Response.class, key, value);
 	}
 
 	public SingleResultObjectResponse retrieveById(Long placeId) {
 		assert(placeId != null);
-		return this.exchange(RESTClient.BASE_URI + "vertices/" + placeId, HttpMethod.GET, SingleResultObjectResponse.class);
+		return this.exchange(getRequestURI() + "/{placeId}", HttpMethod.GET, SingleResultObjectResponse.class, placeId);
 	}
-	
 }
